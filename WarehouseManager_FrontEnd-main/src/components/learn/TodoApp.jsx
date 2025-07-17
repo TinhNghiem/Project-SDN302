@@ -1,65 +1,62 @@
-import TodoData from './TodoData';
-import TodoNew from './TodoNew';
-import './todo.css';
-import reactLogo from '../../assets/react.svg';
-import { useState } from 'react';
+import { useContext } from "react";
+import { Card, Row, Col, Statistic, Typography } from "antd";
+import { AuthContext } from "../context/auth.context";
+import { UsergroupAddOutlined, ShoppingCartOutlined, DollarOutlined, TeamOutlined, CloudUploadOutlined, TruckOutlined } from "@ant-design/icons";
+
+const { Title } = Typography;
 
 const TodoApp = () => {
-    const [todoList, setTodoList] = useState([
-        // { id: 1, name: "Learning React " },
-        // { id: 2, name: "Watching Youtube" }
-    ])
+  const { user } = useContext(AuthContext);
+  // Dữ liệu demo, bạn có thể fetch API thực tế nếu muốn
+  const stats = {
+    accounts: 12,
+    products: 120,
+    inOrders: 34,
+    outOrders: 28,
+    revenue: 50000000,
+    customers: 45,
+  };
 
-    const addNewTodo = (name) => {
-        const newTodo = {
-            id: randomIntFromInterval(1, 1000000),
-            name: name
-        }
-
-        setTodoList([...todoList, newTodo])
-    }
-
-    const randomIntFromInterval = (min, max) => { // min and max included 
-        return Math.floor(Math.random() * (max - min + 1) + min);
-    }
-
-    const deleteTodo = (id) => {
-        const newTodo = todoList.filter(item => item.id !== id)
-        setTodoList(newTodo);
-    }
-
-    return (
-        <div className="todo-container">
-            <div className="todo-title">Warehouse Manager</div>
-            <TodoNew
-                addNewTodo={addNewTodo}
-            />
-
-            {todoList.length > 0 ?
-                <TodoData
-                    todoList={todoList}
-                    deleteTodo={deleteTodo}
-                />
-                :
-                <div className='todo-image'>
-                    <img src={reactLogo} className='logo' />
-                </div>
-            }
-
-            {/* {todoList.length > 0 &&
-      <TodoData
-        todoList={todoList}
-      />
-    }
-  
-    {todoList.length === 0 &&
-      <div className='todo-image'>
-        <img src={reactLogo} className='logo' />
-      </div>
-    } */}
-
-        </div>
-    )
-}
+  return (
+    <div style={{ padding: 32 }}>
+      <Title level={2} style={{ textAlign: "center", marginBottom: 32 }}>
+        Chào mừng {user?.username ? user.username : "Admin"} đến với hệ thống quản lý kho!
+      </Title>
+      <Row gutter={[24, 24]} justify="center">
+        <Col xs={24} sm={12} md={8} lg={6}>
+          <Card>
+            <Statistic title="Tài khoản" value={stats.accounts} prefix={<TeamOutlined />} />
+          </Card>
+        </Col>
+        <Col xs={24} sm={12} md={8} lg={6}>
+          <Card>
+            <Statistic title="Sản phẩm" value={stats.products} prefix={<ShoppingCartOutlined />} />
+          </Card>
+        </Col>
+        <Col xs={24} sm={12} md={8} lg={6}>
+          <Card>
+            <Statistic title="Khách hàng" value={stats.customers} prefix={<UsergroupAddOutlined />} />
+          </Card>
+        </Col>
+        <Col xs={24} sm={12} md={8} lg={6}>
+          <Card>
+            <Statistic title="Đơn nhập kho" value={stats.inOrders} prefix={<CloudUploadOutlined />} />
+          </Card>
+        </Col>
+        <Col xs={24} sm={12} md={8} lg={6}>
+          <Card>
+            <Statistic title="Đơn xuất kho" value={stats.outOrders} prefix={<TruckOutlined />} />
+          </Card>
+        </Col>
+        <Col xs={24} sm={12} md={8} lg={6}>
+          <Card>
+            <Statistic title="Doanh thu (VNĐ)" value={stats.revenue.toLocaleString()} prefix={<DollarOutlined />} />
+          </Card>
+        </Col>
+      </Row>
+      
+    </div>
+  );
+};
 
 export default TodoApp;
