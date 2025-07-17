@@ -9,7 +9,7 @@ import {
   OutOrderRouter,
   SupplierRouter,
   LoginRouter,
-  LogoutRouter
+  LogoutRouter,
 } from "./routes/index.js";
 import connectDB from "./config/database.js";
 import cors from "cors";
@@ -19,6 +19,7 @@ dotenv.config();
 // Tạo đối tượng app để khởi tạo web container
 const app = express();
 app.use(json());
+app.use(express.json());
 
 app.use(cors());
 // Cấu hình hoạt động routing (định tuyến) các request gửi tới web server
