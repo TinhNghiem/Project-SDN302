@@ -2,7 +2,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./styles/global.css";
-import TodoApp from "./components/learn/TodoApp.jsx";
+// import TodoApp from "./components/learn/TodoApp.jsx";
 import ErrorPage from "./pages/erorr.jsx";
 import Login from "./components/login/login.jsx";
 import Product from "./components/product/product.jsx";
@@ -22,8 +22,6 @@ import ImportOutOrderExcelPage from "./components/out-order/out-order-import.jsx
 import PrivateRoute from "./pages/private.route.jsx";
 
 const router = createBrowserRouter([
-
-
   {
     path: "/login",
     element: <Login />,
@@ -31,12 +29,12 @@ const router = createBrowserRouter([
   },
   {
     path: "/",
-    element: <PrivateRoute><App /></PrivateRoute>,
+    element: <App />,
     children: [
-      {
-        index: true,
-        element: <TodoApp />,
-      },
+      // {
+      //   index: true,
+      //   element: <TodoApp />,
+      // },
       {
         path: "/products",
         element: <Product />,
@@ -63,7 +61,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/addout-orders",
-        element: <AddOutOrder/>,
+        element: <AddOutOrder />,
       },
       {
         path: "/in-orders",
@@ -89,12 +87,7 @@ const router = createBrowserRouter([
         path: "/import-out-order",
         element: <ImportOutOrderExcelPage />,
       },
-      
     ],
-  },
-  {
-    path: "*",
-    element: <Login />,
   },
 ]);
 
