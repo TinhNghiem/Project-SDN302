@@ -19,6 +19,7 @@ import ImportProductExcelPage from "./components/product/product.import.jsx";
 import ImportSupllierExcelPage from "./components/supllier/supllier.import.jsx";
 import ImportInOrderExcelPage from "./components/in-order/import.inorder.jsx";
 import ImportOutOrderExcelPage from "./components/out-order/out-order-import.jsx";
+import PrivateRoute from "./pages/private.route.jsx";
 
 const router = createBrowserRouter([
 
@@ -30,8 +31,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/",
-    element:
-      <App />,
+    element: <PrivateRoute><App /></PrivateRoute>,
     children: [
       {
         index: true,
@@ -92,7 +92,10 @@ const router = createBrowserRouter([
       
     ],
   },
-
+  {
+    path: "*",
+    element: <Login />,
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
